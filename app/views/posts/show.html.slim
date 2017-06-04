@@ -1,0 +1,41 @@
+
+.row.margin-top-5
+  = hidden_field_tag "post_id", @post.id, class:"post-id"
+
+  .panel
+    .panel-heading
+      h4
+        a.ubuntu href=""  = @post.title
+      p.text-muted.ubuntu
+        = " by #{User.find_by(id: @post&.user_id).try(:first_name)}"
+    br
+    .panel-body
+      = raw @post.body
+
+  - if @post.user_id == current_user&.id
+    = link_to 'Edit', edit_post_path(@post)
+
+
+  .comments-container
+    ul#comments-list.comments-list.list-unstyled.comments
+      - @post.comments&.each do |comment|
+        == render 'posts/comment', comment: comment
+
+  - if user_signed_in?
+    .panel
+      .panel-heading
+        .panel-title
+      .panel-body
+        = text_area_tag "comment", nil, class:"form-control comment_content"
+        button.send-comment.btn.btn-primary.pull-right.margin-top-5 Send
+
+coffee:
+  $('.send-comment').click ->
+    console.log "post " + $('.post-id').val() + "; comment " + $('.comment-content').val()
+    comment_content = $('.comment_content').val()
+    $.post '/comments/ajax_post_comment',
+    {
+      post_id: $('.post-id').val()
+      comment_content: comment_content
+    }, (data, status) ->
+      $('.comments').append(data)

@@ -1,0 +1,20 @@
+.row
+  .pull-right.col-md-3
+    = select_tag "imp_exp", options_for_select([["Newest","newest"], ["Oldest","oldest"]]), class:"post-filter form-control"
+.list-posts.margin-top-5
+  == render 'posts/list_posts'
+.text-center
+  = will_paginate(@posts)
+
+coffee:
+  render_posts = (url) ->
+    $.get url,
+    {}, (data, status) ->
+      $('.list-posts').html(data)
+
+  $('.post-filter').change ->
+    if $(this).val() == 'oldest'
+      render_posts('posts/ajax_oldest_posts')
+    if $(this).val() == 'newest'
+      render_posts('posts/ajax_newest_posts')
+

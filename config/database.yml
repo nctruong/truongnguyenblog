@@ -1,0 +1,9 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  pool: 25
+  database: rails5_started
+  username: postgres
+  password: postgres
+  host: localhost
+template: template0

@@ -1,0 +1,18 @@
+= form_for @post do |f|
+  - if @post.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@post.errors.count, "error")} prohibited this post from being saved:"
+      ul
+        - @post.errors.full_messages.each do |message|
+          li = message
+  .field.form-group
+    = f.label :title
+    = f.text_field :title, class:"form-control"
+  .field.form-group
+    = f.label :body
+    = f.text_area :body, class:"form-control editor", rows:20
+  .actions
+    button.btn.btn-primary.pull-right Submit
+
+coffee:
+  $('.editor').wysihtml5()

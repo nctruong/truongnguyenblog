@@ -1,0 +1,22 @@
+h1 Posts
+.pull-right
+  = link_to 'New Post', new_post_path
+table.table.table-scrollable.table-scrollable-borderless
+  thead
+    tr
+      th Title
+      th
+      th
+      th
+
+  tbody
+    - @posts.each do |post|
+      tr
+        td = post.title
+        td = link_to 'Show', post
+        td = link_to 'Edit', edit_post_path(post)
+        td = link_to 'Destroy', post, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+

@@ -1,0 +1,13 @@
+li.comment-main-level
+  .comment-avatar
+    img alt="" src="/img/avatar.jpg" /
+  .comment-box
+    .comment-head
+      h6.comment-name.by-author
+        = " by #{User.find_by(id: comment&.user_id).try(:first_name)}"
+      i.fa.fa-reply
+      i.fa.fa-heart
+    .comment-content
+      = comment.try(:body)
+      |
+  hr

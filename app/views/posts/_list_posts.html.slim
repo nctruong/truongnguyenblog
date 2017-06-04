@@ -1,0 +1,30 @@
+- @posts&.each do |post|
+  .div
+    .span8
+      .row
+        .span8
+          h4
+            strong
+              = link_to post&.title, post_path(post)
+      .row
+        .span8
+          p
+          p
+            = " by #{User.find_by(id: post&.user_id).try(:first_name)}"
+            | \
+            = " #{post&.created_at.to_date}"
+            | \
+            = " #{post&.comments.size} comments"
+      .row
+        .span2.col-md-2
+          a.thumbnail href="#"
+            img alt="" src="http://placehold.it/260x180" /
+        .span6
+          p
+            |
+            = raw post&.body.split(" ").take(60).join(" ") << "..."
+          p
+            a.btn href="#"  Read more
+
+
+  hr
