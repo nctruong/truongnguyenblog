@@ -1,3 +1,4 @@
+require 'action_view'
 class Api::V1::PostsController < Api::V1::ApiController
   before_action :set_post, only: [:show]
   skip_before_action :authenticate

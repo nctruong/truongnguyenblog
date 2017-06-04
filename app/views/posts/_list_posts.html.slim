@@ -22,9 +22,10 @@
         .span6
           p
             |
-            = raw post&.body.split(" ").take(60).join(" ") << "..."
+            = raw CGI.unescapeHTML(post&.body).split(" ").take(50).join(" ") << "..."
           p
-            a.btn href="#"  Read more
+            = link_to post_path(post) do
+              .btn Read more
 
 
   hr

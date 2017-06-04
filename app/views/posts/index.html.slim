@@ -1,22 +1,27 @@
-h1 Posts
-.pull-right
-  = link_to 'New Post', new_post_path
-table.table.table-scrollable.table-scrollable-borderless
-  thead
-    tr
-      th Title
-      th
-      th
-      th
-
-  tbody
-    - @posts.each do |post|
+h3 Posts
+.row
+  .pull-right
+    = link_to 'New Post', new_post_path, class:"btn btn-outline btn-default"
+br
+.row
+  table.table.table-bordered.table-striped.margin-top-5
+    thead
       tr
-        td = post.title
-        td = link_to 'Show', post
-        td = link_to 'Edit', edit_post_path(post)
-        td = link_to 'Destroy', post, data: { confirm: 'Are you sure?' }, method: :delete
+        th
+        th Title
+        th
+        th
+
+    tbody
+      - @posts.each_with_index do |post, idx|
+        tr
+          td= (idx + 1)
+          td= link_to post.title, post
+          td.col-md-1 = link_to 'Edit', edit_post_path(post), class:"label label-outline label-warning"
+          td.col-md-1 = link_to 'Destroy', post, data: { confirm: 'Are you sure?' }, method: :delete, class:"label label-outline label-danger"
 
 br
+.row.text-center
+  = will_paginate(@posts)
 
 

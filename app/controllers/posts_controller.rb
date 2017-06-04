@@ -15,12 +15,13 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all.order(created_at: :desc)
+    @posts = Post.where(user_id: current_user&.id).order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /posts/1
   # GET /posts/1.json
   def show
+    @post.body = CGI.unescapeHTML(@post.body)
   end
 
   # GET /posts/new
@@ -30,13 +31,17 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
+    @post.body = CGI.unescapeHTML(@post.body)
   end
 
   # POST /posts
   # POST /posts.json
   def create
-    @post = Post.new(post_params)
-    @post.user_id = current_user.id
+    create_params = post_params
+    create_params[:user_id] = current_user.id
+    create_params[:body] = CGI.escapeHTML(post_params[:body])
+    create_params[:content_filtered] = "#{post_params[:title]} #{ActionController::Base.helpers.strip_tags(post_params[:body])}"
+    @post = Post.new(create_params)
     respond_to do |format|
       if @post.save
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
@@ -51,8 +56,11 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
   def update
+    update_params = post_params
+    update_params[:body] = CGI.escapeHTML(update_params[:body])
+    update_params[:content_filtered] = "#{post_params[:title]} #{ActionController::Base.helpers.strip_tags(post_params[:body])}"
     respond_to do |format|
-      if @post.update(post_params)
+      if @post.update(update_params)
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
         format.json { render :show, status: :ok, location: @post }
       else
@@ -80,6 +88,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :body)
+      params.require(:post).permit(:title, :body, :content_filtered)
     end
 end

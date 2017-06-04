@@ -1,8 +1,11 @@
-h1 Editing post
+h3 Editing post
+.row.pull-right
+  = link_to 'Show', @post
+  '|
+  = link_to 'Back', posts_path
+br
+.row.margin-top-5
+  == render 'form'
 
-== render 'form'
 
-= link_to 'Show', @post
-'|
-= link_to 'Back', posts_path
 
