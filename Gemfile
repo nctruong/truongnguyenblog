@@ -14,11 +14,12 @@ gem 'bootstrap-sass', '3.3.7'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby] # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'slim-rails', '3.1.0'
 gem 'devise', '4.2.0'
-gem 'searchkick'
-gem 'sunspot_rails'
-gem 'sunspot_solr'
+# gem 'searchkick'
+# gem 'sunspot_rails'
+# gem 'sunspot_solr'
 gem 'will_paginate', '~> 3.1.0'
 gem 'seed_dump'
+gem 'ransack'
 
 group :development, :test do
   gem 'byebug', platform: :mri  # Call 'byebug' anywhere in the code to stop execution and get a debugger console

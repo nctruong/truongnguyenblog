@@ -3,12 +3,20 @@ class Api::V1::PostsController < Api::V1::ApiController
   skip_before_action :authenticate
 
   def index
-    @posts = Post.all.order(created_at: :desc)
     if params[:q].present?
-      @res = @posts.search do
-        fulltext params[:q]
-      end
-      @posts = @res.results
+      # Simple way
+      # @posts = Post.where((Post.arel_table[:title].matches("%#{params[:q]}%".gsub('"',''))).or(Post.arel_table[:body].matches("%#{params[:q]}%".gsub('"',''))))
+
+      # Ransack Search
+      @posts = Post.ransack(params[:q]).result(distinct: true)
+
+      # Using sunsport for searching
+      # @res = @posts.search do
+      #   fulltext params[:q]
+      # end
+      # @posts = @res.results
+    else
+      @posts = Post.all.order(created_at: :desc)
     end
     render json: @posts
   end
