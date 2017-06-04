@@ -25,26 +25,12 @@ I have missed several devise features like email confirmation, reset password, f
 
 ### Setup
 
-* always use this command for bundle during development in local machine:
+``` Bundle install ```
 
-    bundle install --without production
+``` rails db:create db:migrate db:seed ```
 
-* always use this command for bundle for production environmnet:
+API Search:
 
-    bundle install --without development test
-
-* Database creation and initialization:
-
-    bundle exec rake db:setup
-
-* How to run the test suite:
-
-    no test suite for now
-
-* Services (job queues, cache servers, search engines, etc.)
-
-    nothing yet
-
-* Deployment instructions
-
-    nothing yet
+```
+https://truongnguyenblog.herokuapp.com/api/v1/posts/index?q[content_filtered_cont]=If you want to be a leader who attracts quality people
+```
