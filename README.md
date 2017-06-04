@@ -1,4 +1,4 @@
-# Basic rails 5 application with devise
+# Truong Nguyen Blog: Basic rails 5 application with devise
 
 This application has responsive mobile view and navigation, twitter bootstrap, devise, rails 5.0.0 and slim setup.
 
